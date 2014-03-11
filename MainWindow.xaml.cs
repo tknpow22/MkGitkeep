@@ -42,7 +42,7 @@ namespace MkGitkeep {
 
         private void OpenRootDirecoty_Click(object sender, RoutedEventArgs e) {
             System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
-            fbd.Description = "フォルダパスを指定してください:";
+            fbd.Description = Properties.Resources.BrowseFileDialogTitle;
             fbd.ShowNewFolderButton = false;
 
             System.Windows.Forms.DialogResult dr = fbd.ShowDialog();

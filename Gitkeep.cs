@@ -26,7 +26,7 @@ namespace MkGitkeep {
         // コンストラクタ
         public Gitkeep(string keepFilename) {
             if (keepFilename == null || keepFilename.Trim().Length == 0) {
-                throw new GitKeepException("ファイル名を指定してください。");
+                throw new GitKeepException(Properties.Resources.InputFilenameAlert);
             }
 
             this.keepFilename = keepFilename;
@@ -97,10 +97,10 @@ namespace MkGitkeep {
         // チェック
         private void ThrowExceptionIfError(string rootDirectory) {
             if (rootDirectory == null || rootDirectory.Trim().Length == 0) {
-                throw new GitKeepException("フォルダパスを指定してください。");
+                throw new GitKeepException(Properties.Resources.InputFolderpathAlert);
             }
             if (this.keepFilename == null || this.keepFilename.Trim().Length == 0) {
-                throw new GitKeepException("ファイル名を指定してください。");
+                throw new GitKeepException(Properties.Resources.InputFilenameAlert);
             }
         }
     }

@@ -73,7 +73,7 @@ namespace MkGitkeep {
                 List<string> filenames = gitkeep.Create(RootDirectory);
                 this.Filenames = string.Join("\n", filenames);
             } catch (Exception ex) {
-                displayError(ex.Message, "エラー");
+                displayError(ex.Message, Properties.Resources.ErrorMessageCaption);
             }
         }
 
@@ -92,7 +92,7 @@ namespace MkGitkeep {
                 List<string> filenames = gitkeep.Remove(RootDirectory);
                 this.Filenames = string.Join("\n", filenames);
             } catch (Exception ex) {
-                displayError(ex.Message, "エラー");
+                displayError(ex.Message, Properties.Resources.ErrorMessageCaption);
             }
         }
     }
