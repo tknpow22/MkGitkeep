@@ -1,0 +1,30 @@
+﻿<Application x:Class="MkGitkeep.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <!-- ボタンの標準スタイル -->
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray"
+                        Opacity=".5"
+                        ShadowDepth="2"
+                        BlurRadius="0"
+                    />
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="RenderTransform" >
+                        <Setter.Value>
+                            <TranslateTransform X=".9" Y=".9" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Application.Resources>
+</Application>
