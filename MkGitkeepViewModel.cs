@@ -9,13 +9,15 @@ using System.Windows.Input;
 namespace MkGitkeep {
     class MkGitkeepViewModel : ViewModelBase {
 
+        // エラー表示表のハンドラ
         Action<string, string> displayError;
 
+        // コンストラクタ
         public MkGitkeepViewModel(string rootDirectory, string keepFilename, Action<string, string> displayError) {
             this.displayError = displayError;
             this.RootDirectory = rootDirectory;
 
-            if (keepFilename == null || keepFilename.Trim().Length == 0) {
+            if (string.IsNullOrEmpty(keepFilename)) {
                 this.KeepFilename = Gitkeep.GetDefaultKeepFilename();
             } else {
                 this.KeepFilename = keepFilename.Trim();
@@ -23,37 +25,37 @@ namespace MkGitkeep {
         }
 
         // ルートディレクトリ名
-        private string rootDirectory_;
+        private string rootDirectory = "";
         public string RootDirectory {
             get {
-                return this.rootDirectory_;
+                return this.rootDirectory;
             }
             set {
-                this.rootDirectory_ = value;
+                this.rootDirectory = value;
                 this.OnPropertyChanged("RootDirectory");
             }
         }
 
-        // デフォルトのファイル名
-        private string keepFilename_;
+        // ファイル名
+        private string keepFilename = "";
         public string KeepFilename {
             get {
-                return this.keepFilename_;
+                return this.keepFilename;
             }
             set {
-                this.keepFilename_ = value;
+                this.keepFilename = value;
                 this.OnPropertyChanged("KeepFilename");
             }
         }
 
         // 影響を受けたファイル名
-        private string filenames_ = "";
+        private string filenames = "";
         public string Filenames {
             get {
-                return this.filenames_;
+                return this.filenames;
             }
             set {
-                this.filenames_ = value;
+                this.filenames = value;
                 this.OnPropertyChanged("Filenames");
             }
         }
@@ -62,18 +64,14 @@ namespace MkGitkeep {
         public ICommand CreateGitkeep {
             get {
                 return new DelegateCommand((param) => {
-                    ExecCreateGitkeep();
+                    try {
+                        Gitkeep gitkeep = new Gitkeep(this.KeepFilename);
+                        List<string> filenames = gitkeep.Create(RootDirectory);
+                        this.Filenames = string.Join("\n", filenames);
+                    } catch (Exception ex) {
+                        displayError(ex.Message, Properties.Resources.ErrorMessageCaption);
+                    }
                 });
-            }
-        }
-
-        public void ExecCreateGitkeep() {
-            try {
-                Gitkeep gitkeep = new Gitkeep(KeepFilename);
-                List<string> filenames = gitkeep.Create(RootDirectory);
-                this.Filenames = string.Join("\n", filenames);
-            } catch (Exception ex) {
-                displayError(ex.Message, Properties.Resources.ErrorMessageCaption);
             }
         }
 
@@ -81,18 +79,14 @@ namespace MkGitkeep {
         public ICommand RemoveGitkeep {
             get {
                 return new DelegateCommand((param) => {
-                    ExecRemoveGitkeep();
+                    try {
+                        Gitkeep gitkeep = new Gitkeep(this.KeepFilename);
+                        List<string> filenames = gitkeep.Remove(RootDirectory);
+                        this.Filenames = string.Join("\n", filenames);
+                    } catch (Exception ex) {
+                        displayError(ex.Message, Properties.Resources.ErrorMessageCaption);
+                    }
                 });
-            }
-        }
-
-        public void ExecRemoveGitkeep() {
-            try {
-                Gitkeep gitkeep = new Gitkeep(KeepFilename);
-                List<string> filenames = gitkeep.Remove(RootDirectory);
-                this.Filenames = string.Join("\n", filenames);
-            } catch (Exception ex) {
-                displayError(ex.Message, Properties.Resources.ErrorMessageCaption);
             }
         }
     }

@@ -103,12 +103,22 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="SetupMkGitkeep\MkGitkeep.nlf" />
+    <None Include="SetupMkGitkeep\MkGitkeep.nsh" />
+    <None Include="SetupMkGitkeep\SetupMkGitkeep.nsi" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="MkGitkeep.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SetupMkGitkeep\NOTE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SetupMkGitkeep\Graphics\HeaderInstall.bmp" />
+    <Resource Include="SetupMkGitkeep\Graphics\Title.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,31 @@
+NSIS 用スクリプト for NSIS 2.4x
+===============================
+
+インストーラを作成するには、以下の作業が必要になります
+
+* NSIS のインストール
+    http://nsis.sourceforge.net/
+  から NSIS 2.4x 系の最新版をダウンロードし、インストールします。
+
+  ※インストール先は Program Files ではない、他のフォルダにして下さい。
+    Vista, 7 では、以下で行う Contrib\Language files へのファイルのコピーが
+    うまくいかない場合があります。
+
+* このフォルダにある
+    MkGitkeep.nlf
+    MkGitkeep.nsh
+  を NSIS をインストールしたフォルダの
+    Contrib\Language files
+  下にコピーして下さい。
+
+* NSIS を起動し [Compiler] の [Compile NSI scripts]
+  を選び MakeNSISW 画面を表示します。
+
+* MakeNSISW 上で、このフォルダにある
+    SetupMkGitkeep.nsi
+  を選び(ドラッグ＆ドロップも可)、コンパイルすると、
+    SetupMkGitkeep.exe
+  が生成されます。
+
+  ※二重定義の警告が出ますが、とりあえず気にしないで下さい。
+    詳細は、SetupMkGitkeep.nsi に記載してあります。

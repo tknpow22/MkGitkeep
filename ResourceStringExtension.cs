@@ -19,7 +19,7 @@ namespace MkGitkeep {
             if (string.IsNullOrEmpty(this.key)) {
                 return "";
             }
-            return Properties.Resources.ResourceManager.GetString(key) ?? "";
+            return Properties.Resources.ResourceManager.GetString(this.key) ?? "";
         }
     }
 }
