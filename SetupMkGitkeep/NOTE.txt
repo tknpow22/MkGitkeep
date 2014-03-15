@@ -18,6 +18,9 @@ NSIS 用スクリプト for NSIS 2.4x
     Contrib\Language files
   下にコピーして下さい。
 
+* まず MkGitkeep を Release ビルドして下さい。
+  ※ビルド用のスクリプトから Release フォルダを参照しています。
+
 * NSIS を起動し [Compiler] の [Compile NSI scripts]
   を選び MakeNSISW 画面を表示します。
 
@@ -27,5 +30,5 @@ NSIS 用スクリプト for NSIS 2.4x
     SetupMkGitkeep.exe
   が生成されます。
 
-  ※二重定義の警告が出ますが、とりあえず気にしないで下さい。
+  ※二重定義の警告が出ますが、無視して下さい。
     詳細は、SetupMkGitkeep.nsi に記載してあります。

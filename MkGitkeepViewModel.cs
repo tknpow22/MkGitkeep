@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace MkGitkeep {
     class MkGitkeepViewModel : ViewModelBase {
@@ -22,6 +23,19 @@ namespace MkGitkeep {
             } else {
                 this.KeepFilename = keepFilename.Trim();
             }
+
+            // タイトルを設定する
+            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            this.Title = string.Format("{0} - {1}",
+                                Properties.Resources.MainWindowTitle,
+                                fileVersionInfo.FileVersion
+                            );
+        }
+
+        // タイトル
+        public string Title {
+            get;
+            private set;
         }
 
         // ルートディレクトリ名
