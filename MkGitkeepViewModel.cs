@@ -118,6 +118,8 @@ namespace MkGitkeep {
         public void SaveProperties() {
             Properties.Settings.Default.RootDirectory = this.RootDirectory;
             Properties.Settings.Default.KeepFilename = this.KeepFilename;
+
+            Properties.Settings.Default.Save();
         }
     }
 }

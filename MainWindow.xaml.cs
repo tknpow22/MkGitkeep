@@ -65,12 +65,10 @@ namespace MkGitkeep {
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
 
-            this.viewModel.SaveProperties();
-
             Properties.Settings.Default.MainWindowWidth = this.Width;
             Properties.Settings.Default.MainWindowHeight = this.Height;
 
-            Properties.Settings.Default.Save();
+            this.viewModel.SaveProperties();
         }
     }
 }
