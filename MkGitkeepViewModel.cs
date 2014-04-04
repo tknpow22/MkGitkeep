@@ -14,15 +14,11 @@ namespace MkGitkeep {
         Action<string, string> displayError;
 
         // コンストラクタ
-        public MkGitkeepViewModel(string rootDirectory, string keepFilename, Action<string, string> displayError) {
-            this.displayError = displayError;
-            this.RootDirectory = rootDirectory;
+        public MkGitkeepViewModel(Action<string, string> displayError) {
 
-            if (string.IsNullOrEmpty(keepFilename)) {
-                this.KeepFilename = Gitkeep.GetDefaultKeepFilename();
-            } else {
-                this.KeepFilename = keepFilename.Trim();
-            }
+            LoadProperties();
+            
+            this.displayError = displayError;
 
             // タイトルを設定する
             FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -102,6 +98,26 @@ namespace MkGitkeep {
                     }
                 });
             }
+        }
+
+        // プロパティをロードする
+        private void LoadProperties() {
+            string rootDirectory = Properties.Settings.Default.RootDirectory;
+            string keepFilename = Properties.Settings.Default.KeepFilename;
+
+            this.RootDirectory = rootDirectory;
+
+            if (string.IsNullOrEmpty(keepFilename)) {
+                this.KeepFilename = Gitkeep.GetDefaultKeepFilename();
+            } else {
+                this.KeepFilename = keepFilename.Trim();
+            }
+        }
+
+        // プロパティを保存する
+        public void SaveProperties() {
+            Properties.Settings.Default.RootDirectory = this.RootDirectory;
+            Properties.Settings.Default.KeepFilename = this.KeepFilename;
         }
     }
 }

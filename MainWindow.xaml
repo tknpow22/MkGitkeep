@@ -33,7 +33,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="{local:ResourceString FilenameLabelCaption}" Margin="5,0,0,0"  VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" />
-            <TextBox Name="KeepFilename" TextWrapping="NoWrap" Text="{Binding Path=KeepFilename, Mode=TwoWay}" Width="152" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" />
+            <TextBox Name="KeepFilename" TextWrapping="NoWrap" Text="{Binding Path=KeepFilename, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="152" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="1" />
         </Grid>
 
         <Grid Grid.Row="3">

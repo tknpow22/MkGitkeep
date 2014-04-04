@@ -18,6 +18,9 @@ namespace MkGitkeep {
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class MainWindow : Window {
+
+        MkGitkeepViewModel viewModel;
+
         public MainWindow() {
             InitializeComponent();
 
@@ -32,9 +35,7 @@ namespace MkGitkeep {
                 MessageBox.Show(this, msg, caption, MessageBoxButton.OK, MessageBoxImage.Error);
             };
 
-            MkGitkeepViewModel viewModel = new MkGitkeepViewModel(
-                    Properties.Settings.Default.RootDirectory,
-                    Properties.Settings.Default.KeepFilename,
+            this.viewModel = new MkGitkeepViewModel(
                     displayError
                 );
             this.DataContext = viewModel;
@@ -63,14 +64,13 @@ namespace MkGitkeep {
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            Properties.Settings.Default.RootDirectory = RootDirectory.Text;
-            Properties.Settings.Default.KeepFilename = KeepFilename.Text;
+
+            this.viewModel.SaveProperties();
 
             Properties.Settings.Default.MainWindowWidth = this.Width;
             Properties.Settings.Default.MainWindowHeight = this.Height;
 
             Properties.Settings.Default.Save();
         }
-
     }
 }
