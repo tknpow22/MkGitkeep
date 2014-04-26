@@ -25,7 +25,7 @@
 ;----------------------------------------------------------------------------
 
 !define PRODUCT_NAME "MkGitkeep"
-!define PRODUCT_VERSION "1.0.0.8"
+!define PRODUCT_VERSION "1.0.0.9"
 !define PRODUCT_PUBLISHER "Bono"
 !define PRODUCT_WEB_SITE "http://www.koutou-software.co.jp/junk/make-gitkeep.html"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\Bono.MkGitkeep"

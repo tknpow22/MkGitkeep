@@ -33,16 +33,23 @@ namespace MkGitkeep {
         }
 
         // ディレクトリ配下にファイルを作成する
-        public List<string> Create(string rootDirectory) {
-            ThrowExceptionIfError(rootDirectory);
+        public List<string> Create(string rootDirectory, bool isCheckGitRepository) {
+            ThrowExceptionIfError(rootDirectory, isCheckGitRepository);
 
             List<string> filenames = new List<string>();
 
-            CreateKeepFile(rootDirectory, filenames);
-
-            IEnumerable<string> directories = Directory.EnumerateDirectories(rootDirectory, "*", SearchOption.AllDirectories);
+            IEnumerable<string> directories = Directory.EnumerateDirectories(rootDirectory, "*", SearchOption.TopDirectoryOnly);
             foreach (string directory in directories) {
+                string dirname = Path.GetFileName(directory);
+                if (string.Compare(dirname, ".git", StringComparison.CurrentCulture) == 0) {
+                    continue;
+                }
+
                 CreateKeepFile(directory, filenames);
+                IEnumerable<string> subDirectories = Directory.EnumerateDirectories(directory, "*", SearchOption.AllDirectories);
+                foreach (string subDirectory in subDirectories) {
+                    CreateKeepFile(subDirectory, filenames);
+                }
             }
 
             return filenames;
@@ -68,8 +75,8 @@ namespace MkGitkeep {
         }
 
         // ディレクトリ配下のファイルを削除する
-        public List<string> Remove(string rootDirectory) {
-            ThrowExceptionIfError(rootDirectory);
+        public List<string> Remove(string rootDirectory, bool isCheckGitRepository) {
+            ThrowExceptionIfError(rootDirectory, isCheckGitRepository);
 
             List<string> filenames = new List<string>();
 
@@ -84,6 +91,10 @@ namespace MkGitkeep {
 
         // ファイルを作成する
         private void Touch(string filepath) {
+            if (File.Exists(filepath)) {
+                // 再作成するために一度削除する
+                File.Delete(filepath);
+            }
             using (FileStream stream = File.Create(filepath)) {
                 stream.Close(); // 念のため
             }
@@ -95,12 +106,19 @@ namespace MkGitkeep {
         }
 
         // チェック
-        private void ThrowExceptionIfError(string rootDirectory) {
+        private void ThrowExceptionIfError(string rootDirectory, bool isCheckGitRepository) {
             if (rootDirectory == null || rootDirectory.Trim().Length == 0) {
                 throw new GitKeepException(Properties.Resources.InputFolderpathAlert);
             }
             if (this.keepFilename == null || this.keepFilename.Trim().Length == 0) {
                 throw new GitKeepException(Properties.Resources.InputFilenameAlert);
+            }
+            if (isCheckGitRepository) {
+                string gitRepodataFolder = Path.Combine(rootDirectory, ".git");
+
+                if (!Directory.Exists(gitRepodataFolder)) {
+                    throw new GitKeepException(Properties.Resources.NotFindGitFolderAlert);
+                }
             }
         }
     }

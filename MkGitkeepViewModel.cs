@@ -58,6 +58,18 @@ namespace MkGitkeep {
             }
         }
 
+        // Git リポジトリかどうかを確認する
+        private bool isCheckGitRepository;
+        public bool IsCheckGitRepository {
+            get {
+                return this.isCheckGitRepository;
+            }
+            set {
+                this.isCheckGitRepository = value;
+                this.OnPropertyChanged("IsCheckGitRepository");
+            }
+        }
+
         // 影響を受けたファイル名
         private string filenames = "";
         public string Filenames {
@@ -75,8 +87,10 @@ namespace MkGitkeep {
             get {
                 return new DelegateCommand((param) => {
                     try {
+                        this.Filenames = "";
+
                         Gitkeep gitkeep = new Gitkeep(this.KeepFilename);
-                        List<string> filenames = gitkeep.Create(RootDirectory);
+                        List<string> filenames = gitkeep.Create(RootDirectory, IsCheckGitRepository);
                         this.Filenames = string.Join("\n", filenames);
                     } catch (Exception ex) {
                         displayError(ex.Message, Properties.Resources.ErrorMessageCaption);
@@ -90,8 +104,10 @@ namespace MkGitkeep {
             get {
                 return new DelegateCommand((param) => {
                     try {
+                        this.Filenames = "";
+
                         Gitkeep gitkeep = new Gitkeep(this.KeepFilename);
-                        List<string> filenames = gitkeep.Remove(RootDirectory);
+                        List<string> filenames = gitkeep.Remove(RootDirectory, IsCheckGitRepository);
                         this.Filenames = string.Join("\n", filenames);
                     } catch (Exception ex) {
                         displayError(ex.Message, Properties.Resources.ErrorMessageCaption);
@@ -112,12 +128,15 @@ namespace MkGitkeep {
             } else {
                 this.KeepFilename = keepFilename.Trim();
             }
+
+            this.IsCheckGitRepository = Properties.Settings.Default.IsCheckGitRepository;
         }
 
         // プロパティを保存する
         public void SaveProperties() {
             Properties.Settings.Default.RootDirectory = this.RootDirectory;
             Properties.Settings.Default.KeepFilename = this.KeepFilename;
+            Properties.Settings.Default.IsCheckGitRepository = this.IsCheckGitRepository;
 
             Properties.Settings.Default.Save();
         }

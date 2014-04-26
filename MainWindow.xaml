@@ -10,6 +10,7 @@
             <RowDefinition Height="29" />
             <RowDefinition Height="29" />
             <RowDefinition Height="29" />
+            <RowDefinition Height="21" />
             <RowDefinition Height="*" />
             <RowDefinition Height="7" />
         </Grid.RowDefinitions>
@@ -48,6 +49,15 @@
         </Grid>
 
         <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="87" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <CheckBox Content="{local:ResourceString IsCheckGitRepositoryCaption}"  IsChecked="{Binding Path=IsCheckGitRepository, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  VerticalAlignment="Center" VerticalContentAlignment="Center"  Grid.Column="1" />
+        </Grid>
+        
+        <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="87" />
                 <ColumnDefinition Width="*" />

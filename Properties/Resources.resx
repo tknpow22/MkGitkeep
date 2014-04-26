@@ -144,7 +144,13 @@
   <data name="InputFolderpathAlert" xml:space="preserve">
     <value>Please input Folder path.</value>
   </data>
+  <data name="IsCheckGitRepositoryCaption" xml:space="preserve">
+    <value>Check Git repository</value>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Make .gitkeep file</value>
+  </data>
+  <data name="NotFindGitFolderAlert" xml:space="preserve">
+    <value>It is not a folder of Git repository.</value>
   </data>
 </root>

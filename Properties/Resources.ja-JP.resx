@@ -144,7 +144,13 @@
   <data name="InputFolderpathAlert" xml:space="preserve">
     <value>フォルダパスを指定してください。</value>
   </data>
+  <data name="IsCheckGitRepositoryCaption" xml:space="preserve">
+    <value>Git リポジトリかどうかを確認する</value>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>.gitkeep ファイルの作成</value>
+  </data>
+  <data name="NotFindGitFolderAlert" xml:space="preserve">
+    <value>Git リポジトリのフォルダではありません。</value>
   </data>
 </root>
